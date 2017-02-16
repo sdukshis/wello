@@ -9,6 +9,7 @@ stages:
   - build
   - deploy
 
+
 build:gcc-5:
   stage: build
   image: gcc:5
@@ -29,9 +30,12 @@ build:gcc-5:
 deploy:
   stage: deploy
   image: docker:git
+  services:
+    - docker:dind
   tags:
     - docker
   before_script:
+    - docker info
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN cpp-russia-ci3.filonovpv.name:5000
   script:
     - docker build -t $CONTAINER_TEST_IMAGE .
