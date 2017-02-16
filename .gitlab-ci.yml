@@ -1,21 +1,25 @@
-before_script:
-  - apt update && apt install -y cmake python-pip python-dev
-  - pip install conan
-  - export CONAN_USER_HOME=$(pwd)
-  - conan user
+# before_script:
+#   - apt update && apt install -y cmake python-pip python-dev
+#   - pip install conan
+#   - export CONAN_USER_HOME=$(pwd)
+#   - conan user
+#   - conan remote add cpp-russia-ci http://cpp-russia-ci3.filonovpv.name:9300
 
 stages:
   - build
   - deploy
 
-build:gcc-6:
+build:gcc-5:
   stage: build
-  image: gcc:6
+  image: gcc:5
   script:
     - mkdir build && cd build
-    - conan install --build=missing ..
-    - cmake ..
-    - make
+    # - conan install --build=missing ..
+    # - cmake ..
+    # - make
+    - mkdir bin
+    - echo 'echo "Hello"' >> bin/wello
+    - chmod 755 bin/wello
   tags:
     - docker
   artifacts:
@@ -33,4 +37,4 @@ deploy:
     - docker build -t $CONTAINER_TEST_IMAGE .
     - docker push $CONTAINER_TEST_IMAGE
   dependencies:
-    - build:gcc-6
+    - build:gcc-5
