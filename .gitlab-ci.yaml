@@ -1,0 +1,36 @@
+before_script:
+  - apt update && apt install -y cmake python-pip python-dev
+  - pip install conan
+  - export CONAN_USER_HOME=$(pwd)
+  - conan user
+
+stages:
+  - build
+  - deploy
+
+build:gcc-6:
+  stage: build
+  image: gcc:6
+  script:
+    - mkdir build && cd build
+    - conan install --build=missing ..
+    - cmake ..
+    - make
+  tags:
+    - docker
+  artifacts:
+    paths:
+      - build/bin/
+
+deploy:
+  stage: deploy
+  image: docker:git
+  tags:
+    - docker
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN cpp-russia-ci3.filonovpv.name:5000
+  script:
+    - docker build -t $CONTAINER_TEST_IMAGE .
+    - docker push $CONTAINER_TEST_IMAGE
+  dependencies:
+    - build:gcc-6

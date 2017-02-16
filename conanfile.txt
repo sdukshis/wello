@@ -1,0 +1,9 @@
+[requires]
+hello/0.1@filonovpv/testing
+Poco/1.7.5@lasote/stable
+
+[generators]
+cmake
+
+[options]
+Poco:cxx_14=True
