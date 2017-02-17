@@ -10,9 +10,9 @@ stages:
   - deploy
 
 
-build:gcc-5:
+build:gcc-4:
   stage: build
-  image: gcc:5
+  image: gcc:4
   script:
     - mkdir build && cd build
     - conan install --build=missing -s compiler=gcc -s compiler.libcxx=libstdc++11 ..
@@ -38,4 +38,4 @@ deploy:
     - docker build -t cpp-russia-ci3.filonovpv.name:5005/cpp-russia/wello .
     - docker push cpp-russia-ci3.filonovpv.name:5005/cpp-russia/wello
   dependencies:
-    - build:gcc-5
+    - build:gcc-4
