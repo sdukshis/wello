@@ -26,4 +26,4 @@ Poco:enable_apacheconnector=False
 Poco:enable_cppparser=False
 Poco:enable_pocodoc=False
 Poco:enable_pagecompiler=False
-Poco:enable_pagecompiler_file2page=Falsecona 
+Poco:enable_pagecompiler_file2page=False
