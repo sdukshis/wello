@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <cstdio>
 
 #include <hello/hello.h>
 
@@ -55,7 +56,7 @@ try {
 	std::clog << "Starting web server..." << std::endl;
 	server.start();
 	std::clog << "Web server started. Press enter to exit" << std::endl;
-	getchar();
+	std::getchar();
 	std::clog << "Stopping web server..." << std::endl;
 
 	return 0;
