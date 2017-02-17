@@ -1,6 +1,8 @@
 #include <iostream>
 #include <sstream>
-#include <cstdio>
+#include <thread>
+#include <chrono>
+#include <csignal>
 
 #include <hello/hello.h>
 
@@ -22,6 +24,16 @@ using Poco::Net::HTTPServerParams;
 using Poco::JSON::Object;
 
 using hello::greet;
+
+namespace
+{
+  volatile std::sig_atomic_t running;
+}
+
+void signal_handler(int signal)
+{
+  running = false;
+}
 
 class HelloRequestHandler: public HTTPRequestHandler {
 public:
@@ -55,8 +67,15 @@ try {
 
 	std::clog << "Starting web server..." << std::endl;
 	server.start();
+
+	if (SIG_ERR == std::signal(SIGINT, signal_handler)) {
+		throw std::runtime_error{"register signal failed"};
+	}
+
 	std::clog << "Web server started. Press enter to exit" << std::endl;
-	std::getchar();
+	for (running = true; running;) {
+		std::this_thread::sleep_for(std::chrono::seconds{1});
+	}
 	std::clog << "Stopping web server..." << std::endl;
 
 	return 0;
