@@ -15,7 +15,7 @@ build:gcc-5:
   image: gcc:5
   script:
     - mkdir build && cd build
-    - conan install --build=missing -s compiler.libcxx=libstdc++11 ..
+    - conan install --build=missing -s compiler=gcc -s compiler.libcxx=libstdc++11 ..
     - cmake ..
     - make
   tags:
