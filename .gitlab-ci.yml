@@ -20,7 +20,7 @@ build:gcc-6:
     - make
   cache:
     paths:
-      - .conan
+      - .conan/data
   tags:
     - docker
   artifacts:
