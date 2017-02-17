@@ -18,6 +18,9 @@ build:gcc-6:
     - conan install --build=missing -s compiler=gcc -s compiler.libcxx=libstdc++11 ..
     - cmake ..
     - make
+  cache:
+    paths:
+      - .conan
   tags:
     - docker
   artifacts:

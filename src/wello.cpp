@@ -68,7 +68,7 @@ try {
 	std::clog << "Starting web server..." << std::endl;
 	server.start();
 
-	if (SIG_ERR == std::signal(SIGINT, signal_handler)) {
+	if (SIG_ERR == std::signal(SIGTERM, signal_handler)) {
 		throw std::runtime_error{"register signal failed"};
 	}
 
