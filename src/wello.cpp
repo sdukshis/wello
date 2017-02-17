@@ -71,6 +71,9 @@ try {
 	if (SIG_ERR == std::signal(SIGTERM, signal_handler)) {
 		throw std::runtime_error{"register signal failed"};
 	}
+	if (SIG_ERR == std::signal(SIGINT, signal_handler)) {
+		throw std::runtime_error{"register signal failed"};
+	}
 
 	std::clog << "Web server started. Press enter to exit" << std::endl;
 	for (running = true; running;) {
