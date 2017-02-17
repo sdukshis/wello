@@ -3,7 +3,7 @@ before_script:
   - pip install conan
   - export CONAN_USER_HOME=$(pwd)
   - conan user
-  - conan remote add cpp-russia-ci http://cpp-russia-ci3.filonovpv.name:9300
+  - conan remote add cpp-russia-ci http://cpp-russia-ci3.filonovpv.name:9300 || conan remote update cpp-russia-ci http://cpp-russia-ci3.filonovpv.name:9300
 
 stages:
   - build
